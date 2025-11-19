@@ -1,4 +1,5 @@
-import { View, Text } from "react-native";
+import { useState, useEffect } from "react";
+import { View, Text, Alert, ScrollView, FlatList } from "react-native";
 
 import { Input } from "../../components/input";
 import { ButtonCustom } from "../../components/Button";
@@ -6,22 +7,44 @@ import { CardParticipant } from "../../components/cardParticipant";
 
 import { styles } from "./styles";
 
-let participants = [
-  {
-    id: "1",
-    name: "jose malandro",
-  },
-  {
-    id: "2",
-    name: "gustavo bala",
-  },
-  {
-    id: "3",
-    name: "chico velho",
-  },
-];
-
+type Participant = {
+  id: number;
+  name: string;
+};
 export function RegisterParticipant() {
+  const [name, setName] = useState("");
+  const [listParticipant, setListParticipant] = useState<Participant[]>([]);
+
+  function handleRegisterParticipant() {
+    if (name !== "") {
+      const newParticipant = {
+        id: new Date().getTime(),
+        name,
+      };
+      setListParticipant((listaAntiga) => [...listaAntiga, newParticipant]);
+      setName("");
+    }
+  }
+  function deleteUser(id: number) {
+    const novaLista = listParticipant.filter(
+      (participant) => participant.id !== id
+    );
+    setListParticipant(novaLista);
+  }
+  function handleRemoveUser(id: number) {
+    Alert.alert("Remoção do usuário", "DEseja remover o participante?", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "remova", onPress: () => deleteUser(id) },
+    ]);
+  }
+  useEffect(() => {
+    //acessar a api
+    Alert.alert("efeito colateral executado");
+  },[]);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -33,21 +56,55 @@ export function RegisterParticipant() {
         <Input
           namePlaceholder="digite o nome do participante"
           placeholderTextColor="#F4F4F5"
+          value={name}
+          onChangeText={(text) => setName(text)}
         />
-        <ButtonCustom icon="UserPlus" variant="primary" />
+        <ButtonCustom
+          icon="UserPlus"
+          variant="primary"
+          onPress={handleRegisterParticipant}
+        />
       </View>
 
       <Text style={styles.titleParticipant}>Participantes</Text>
 
-      <View style={styles.listParticipant}>
-        {participants.length < 0 ? (
-          <></>
+      <FlatList
+        data={listParticipant}
+        keyExtractor={(item) => `${item.id}`}
+        contentContainerStyle={styles.listParticipant}
+        renderItem={({ item }) => (
+          <CardParticipant
+            name={item.name}
+            id={item.id}
+            deleteUser={() => handleRemoveUser(item.id)}
+          />
+        )}
+        ListEmptyComponent={() => (
+          <Text style={styles.textListEmpty}>
+            Nenhum participante {"\n"} cadastrado no evento sertaoComp
+          </Text>
+        )}
+      />
+    </View>
+  );
+}
+
+/* 
+
+<ScrollView contentContainerStyle={styles.listParticipant}>
+        {listParticipant.length > 0 ? (
+          listParticipant.map((participant) => (
+            <CardParticipant
+              key={participant.id}
+              name={participant.name}
+              id={participant.id}
+              deleteUser={() => handleRemoveUser(participant.id)}
+            />
+          ))
         ) : (
           <Text style={styles.textListEmpty}>
             Nenhum participante {"\n"} cadastrado no evento sertaoComp
           </Text>
         )}
-      </View>
-    </View>
-  );
-}
+      </ScrollView>
+*/

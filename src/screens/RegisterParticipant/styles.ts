@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+import { THEME } from "../../global/themesDesign";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -15,11 +15,12 @@ export const styles = StyleSheet.create({
   titleHeader: {
     fontSize: 36,
     color: "#00A63E",
-    fontWeight: "bold",
+    fontFamily: THEME.fonts.extraBold,
   },
   dateHeader: {
     fontSize: 16,
     color: "#F4F4F5",
+    fontFamily: THEME.fonts.regular,
   },
   form: {
     flexDirection: "row",
@@ -29,9 +30,9 @@ export const styles = StyleSheet.create({
   },
   titleParticipant: {
     color: "#FE9A00",
-    fontWeight: "bold",
     marginBottom: 20,
     fontSize: 30,
+    fontFamily: THEME.fonts.bold,
   },
   listParticipant: {
     gap: 10,
@@ -40,6 +41,6 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     color: "#F4F4F5",
     fontSize: 20,
-    fontWeight: "bold",
+    fontFamily: THEME.fonts.bold,
   },
 });

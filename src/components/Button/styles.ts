@@ -8,9 +8,4 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 8,
   },
-  textButton: {
-    color: "#F4F4F5",
-    fontSize: 24,
-    fontWeight: "bold",
-  },
 });

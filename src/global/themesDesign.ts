@@ -18,7 +18,7 @@ export const THEME = {
   fonts: {
     regular: "Roboto_400Regular",
     bold: "Roboto_700Bold",
-    extraBold: "Roboto_900ExtraBold",
+    extraBold: "Roboto_800ExtraBold",
   },
   size: {
     xm: 16,

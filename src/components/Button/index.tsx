@@ -1,9 +1,8 @@
-import { TouchableOpacity, TouchableOpacityProps, Text } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 import { UserPlus, Trash } from "phosphor-react-native";
-
 import { styles } from "./styles";
 
-type Props = TouchableOpacityProps & {
+type Props = TouchableOpacityProps &{
   icon: "UserPlus" | "Trash";
   variant: "primary" | "secondary";
 };
@@ -17,9 +16,9 @@ export function ButtonCustom({ icon, variant, ...rest }: Props) {
       {...rest}
     >
       {icon === "UserPlus" ? (
-        <Text style={styles.textButton}>+</Text>
+        <UserPlus color="#F4F4F5" size={24} />
       ) : (
-        <Text style={styles.textButton}>-</Text>
+        <Trash color="#F4F4F5" size={24} />
       )}
     </TouchableOpacity>
   );
