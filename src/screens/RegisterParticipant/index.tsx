@@ -41,10 +41,10 @@ export function RegisterParticipant() {
       { text: "remova", onPress: () => deleteUser(id) },
     ]);
   }
-  useEffect(() => {
+ /*  useEffect(() => {
     //acessar a api
     Alert.alert("efeito colateral executado");
-  },[]);
+  },[]); */
   return (
     <View style={styles.container}>
       <View style={styles.header}>
